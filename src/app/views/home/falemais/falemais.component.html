@@ -1,0 +1,72 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="padding-left: 2%; padding-right: 2%;">
+  <ng-container matColumnDef="origem">
+    <th mat-header-cell *matHeaderCellDef> Origem </th>
+    <td mat-cell *matCellDef="let element"> {{element.origem}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="destino">
+    <th mat-header-cell *matHeaderCellDef> Destino </th>
+    <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="valor">
+    <th mat-header-cell *matHeaderCellDef> R$/min </th>
+    <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div class="formsInput" style="padding-top: 30px;">
+  <div style="margin-left: 10px; margin-right: 10px;">
+    <mat-form-field>
+      <mat-select placeholder="Origem DDD" (selectionChange)="origemValor($event.value)">
+        <mat-option *ngFor="let origem of origemsDDD" [value]="origem.value">
+          {{ origem.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div style="margin-right: 10px;">
+    <mat-form-field>
+      <mat-select placeholder="Destino DDD" (selectionChange)="destinoValor($event.value)">
+        <mat-option *ngFor="let origem of origemsDDD" [value]="origem.value">
+          {{ origem.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div style="margin-right: 10px;">
+    <mat-form-field>
+      <mat-select placeholder="Plano FaleMais" (selectionChange)="planoId($event.value)">
+        <mat-option *ngFor="let plano of planos" [value]="plano.id">
+          {{ plano.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div style="margin-right: 10px;">
+    <mat-form-field>
+      <mat-label>Duração</mat-label>
+      <input matInput #duracao required placeholder="Ex. 10">
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-fab color="primary" (click)="duracaoValor(duracao.value)">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div style="margin-left: 15px; margin-top: 20px;">
+    <span *ngIf="calcularTaxaPlano?.toString()"><strong>Com Plano FaleMais: </strong>
+      {{valorCurrency(calcularTaxaPlano?.toString())}} </span>
+  </div>
+  <mat-divider></mat-divider>
+  <div style="margin-left: 15px; margin-top: 20px;">
+    <span *ngIf="calcularTaxa?.toString()"><strong> Sem Plano FaleMais:</strong>
+      {{valorCurrency(calcularTaxa?.toString())}}</span>
+  </div>
+</div>

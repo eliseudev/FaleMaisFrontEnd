@@ -1,0 +1,8 @@
+.formsInput{
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+  }
+span{
+  font-size: 30px;
+}
